@@ -25,6 +25,8 @@ class LibertyPayTest extends TestCase
             ->getMock();
 
         $this->assertEquals(LibertyPay::DEFAULT_GATEWAY, $object->getGatewayUrl());
+        $this->assertIsString($object->getSignature());
+        $this->assertEquals(128, strlen($object->getSignature()));
         $this->assertIsArray($object->getFormFields());
         $this->assertEquals(
             [
@@ -68,6 +70,8 @@ class LibertyPayTest extends TestCase
 
 
         $this->assertIsArray($object->getFormFields());
+        $this->assertIsString($object->getSignature());
+        $this->assertEquals(128, strlen($object->getSignature()));
         $this->assertEquals($data, $object->getFormFields());
         $this->assertEquals(json_encode($data), json_encode($object));
     }
