@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Premier\Payment;
 
+/**
+ */
 class LibertyPay implements \JsonSerializable
 {
     const DEFAULT_GATEWAY = 'https://gateway.charityclear.com/paymentform/';
@@ -22,8 +24,18 @@ class LibertyPay implements \JsonSerializable
     protected $callbackURL;
     protected $redirectURL;
 
-    public function __construct(string $merchantId, string $signatureKey, int $currencyCode = 826, int $countryCode = 826)
-    {
+    /**
+     * @param string      $merchantId
+     * @param string      $signatureKey
+     * @param int|integer $currencyCode
+     * @param int|integer $countryCode
+     */
+    public function __construct(
+        string $merchantId,
+        string $signatureKey,
+        int $currencyCode = 826,
+        int $countryCode = 826
+    ) {
         $this->merchantId = $merchantId;
         $this->signatureKey = $signatureKey;
         $this->currencyCode = $currencyCode;
@@ -31,8 +43,7 @@ class LibertyPay implements \JsonSerializable
 
         $this->setGatewayUrl(self::DEFAULT_GATEWAY)
             ->setAction('SALE')
-            ->setType(1)
-        ;
+            ->setType(1);
     }
 
     /**
@@ -51,7 +62,9 @@ class LibertyPay implements \JsonSerializable
     }
 
     /**
-     * @return string $gatewayUrl
+     * @param string $gatewayUrl
+     *
+     * @return Premier\Payment\LibertyPay
      */
     public function setGatewayUrl(string $gatewayUrl): self
     {
@@ -70,6 +83,8 @@ class LibertyPay implements \JsonSerializable
 
     /**
      * @param int $amount
+     *
+     * @return Premier\Payment\LibertyPay
      */
     public function setAmount(int $amount): self
     {
@@ -80,6 +95,8 @@ class LibertyPay implements \JsonSerializable
 
     /**
      * @param string $action
+     *
+     * @return Premier\Payment\LibertyPay
      */
     public function setAction(string $action): self
     {
@@ -90,6 +107,8 @@ class LibertyPay implements \JsonSerializable
 
     /**
      * @param int $type
+     *
+     * @return Premier\Payment\LibertyPay
      */
     public function setType(int $type): self
     {
@@ -100,6 +119,8 @@ class LibertyPay implements \JsonSerializable
 
     /**
      * @param mixed $transactionUnique
+     *
+     * @return Premier\Payment\LibertyPay
      */
     public function setTransactionUnique($transactionUnique): self
     {
@@ -110,6 +131,8 @@ class LibertyPay implements \JsonSerializable
 
     /**
      * @param mixed $orderRef
+     *
+     * @return Premier\Payment\LibertyPay
      */
     public function setOrderRef($orderRef): self
     {
@@ -120,6 +143,8 @@ class LibertyPay implements \JsonSerializable
 
     /**
      * @param int $captureDelay
+     *
+     * @return Premier\Payment\LibertyPay
      */
     public function setCaptureDelay(int $captureDelay): self
     {
@@ -130,6 +155,8 @@ class LibertyPay implements \JsonSerializable
 
     /**
      * @param string $callbackURL
+     *
+     * @return Premier\Payment\LibertyPay
      */
     public function setCallbackURL(string $callbackURL): self
     {
@@ -140,6 +167,8 @@ class LibertyPay implements \JsonSerializable
 
     /**
      * @param string $redirectURL
+     *
+     * @return Premier\Payment\LibertyPay
      */
     public function setRedirectURL(string $redirectURL): self
     {
@@ -153,17 +182,19 @@ class LibertyPay implements \JsonSerializable
      */
     public function getFormFields(): array
     {
-        return array_filter([
-            'merchantID' => $this->merchantId,
-            'action' => $this->action,
-            'type' => $this->type,
-            'amount' => $this->amount,
-            'transactionUnique' => $this->transactionUnique,
-            'orderRef' => $this->orderRef,
-            'captureDelay' => $this->captureDelay,
-            'callbackURL' => $this->callbackURL,
-            'redirectURL' => $this->redirectURL,
-        ]);
+        return array_filter(
+            [
+                'merchantID' => $this->merchantId,
+                'action' => $this->action,
+                'type' => $this->type,
+                'amount' => $this->amount,
+                'transactionUnique' => $this->transactionUnique,
+                'orderRef' => $this->orderRef,
+                'captureDelay' => $this->captureDelay,
+                'callbackURL' => $this->callbackURL,
+                'redirectURL' => $this->redirectURL,
+            ]
+        );
     }
 
     /**
