@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Premier\Tariff\Tests;
+namespace Premier\Payment\Tests;
 
 use PHPUnit\Framework\TestCase;
 use Premier\Payment\LibertyPay;
