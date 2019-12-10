@@ -75,4 +75,19 @@ class LibertyPayTest extends TestCase
         $this->assertEquals($data, $object->getFormFields());
         $this->assertEquals(json_encode($data), json_encode($object));
     }
+
+    public function testSignature()
+    {
+        $data =  [
+            'a' => 'b',
+            'c' => 'd',
+        ];
+
+        $object = $this->getMockBuilder(LibertyPay::class)
+            ->setConstructorArgs(['foo', 'bar', 800, 500])
+            ->setMethods(null)
+            ->getMock();
+
+        $this->assertEquals('bab68407bd842c973f37666cb2e387a340b4a977a383473472ad3d78bf3c8d10968c0faf4d3866ecbfac1843f7162483c560141508f2ef382652c406e468ca45', $object->buildSignature($data));
+    }
 }

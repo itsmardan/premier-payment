@@ -49,16 +49,22 @@ class LibertyPay implements \JsonSerializable
     /**
      * @return string
      */
-    public function getSignature(): string
+    public function buildSignature(array $fields): string
     {
-        $fields = $this->getFormFields();
         ksort($fields);
-
         $signature = http_build_query($fields, '', '&');
         $signature = preg_replace('/%0D%0A|%0A%0D|%0A|%0D/i', '%0A', $signature);
         $hash = hash('SHA512', $signature . $this->signatureKey);
 
         return $hash;
+    }
+
+    /**
+     * @return string
+     */
+    public function getSignature(): string
+    {
+        return $this->buildSignature($this->getFormFields());
     }
 
     /**
